@@ -12,34 +12,36 @@ headers = {
 
 url = 'https://www.example.com/'
 
-#Webseite die abgefragt werden soll wird definiert
+# Webseite die abgefragt werden soll wird definiert
 page = requests.get(url, headers=headers)
 
-#Aktuelles Datum der Abfrage nach dem Schema YYYY-mm-dd
+# Aktuelles Datum der Abfrage nach dem Schema YYYY-mm-dd
 now = datetime.datetime.now().strftime("%Y-%m-%d")
 
-#Website aufrufen
+# Website aufrufen
 soup = BeautifulSoup(page.text, 'html.parser')
 
-#Seiten Titel bestimmen
+# Seiten Titel bestimmen
 site_title = soup.find('meta',attrs={'name':'author'})
 
-#Pfad und Name der CSV Datei
+# Pfad und Name der CSV Datei
 filename = 'filename.csv'   #Dateiname definieren mit dem prefix .csv
 filepath = '/path/to/file' #Pfad zur Datei
 
 file = filepath + filename
 
-CSV Header definieren
+# CSV Header definieren
 fieldnames = ['Date', 'Site', 'Titel', 'URL', 'ID','Content']
 
+# Überprüfen ob die Datei schon existiert. 
+# Wenn die Datei noch nicht vorhanden ist wird diese erstellt und der Header geschrieben.
 my_file = Path(file)
 
-# Überprüfen pb die Datei schon existiert. Wenn die Datei noch nicht vorhanden ist wird diese erstellt und der Header geschrieben.
 if my_file.is_file() == False:
     csvfile = open(file, 'w', newline='', encoding='utf-8')
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=';')
-     
+    
+    # Schreiben des csv headers
     writer.writeheader()
 
     csvfile.close
