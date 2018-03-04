@@ -30,6 +30,7 @@ filepath = '/path/to/file' #Pfad zur Datei
 
 file = filepath + filename
 
+CSV Header definieren
 fieldnames = ['Date', 'Site', 'Titel', 'URL', 'ID','Content']
 
 my_file = Path(file)
